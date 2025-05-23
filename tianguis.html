@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tianguis Maya - Conectando Raíces</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .search-bar {
+      margin: 2rem 0;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product-content {
+      padding: 1.5rem;
+    }
+
+    .product-title {
+      font-size: 1.5rem;
+      color: #4a7856;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-price {
+      font-size: 1.2rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
+
+    .product-seller {
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-quantity {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .whatsapp-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: #25D366;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    .whatsapp-button:hover {
+      background-color: #128C7E;
+    }
+
+    .add-product-button {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #4a7856;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .add-product-button:hover {
+      transform: scale(1.1);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background-color: white;
+      width: 90%;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .form-group textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .dark-mode .product-card {
+      background-color: #2a2a2a;
+    }
+
+    .dark-mode .product-seller,
+    .dark-mode .product-quantity {
+      color: #ccc;
+    }
+
+    .dark-mode .modal-content {
+      background-color: #2a2a2a;
+      color: white;
+    }
+
+    .dark-mode .form-group label {
+      color: #ccc;
+    }
+
+    .dark-mode .form-group input,
+    .dark-mode .form-group textarea {
+      background-color: #333;
+      border-color: #444;
+      color: white;
+    }
+
+    footer {
+      background-color: #4a7856;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Conectando Raíces</h1>
+    <nav>
+      <a href="index.html" data-es="Inicio" data-maya="Ka'ansik" data-en="Home">Inicio</a>
+      <a href="technoabuelos.html" data-es="TechnoAbuelos" data-maya="TechnoAbuelos" data-en="TechElders">TechnoAbuelos</a>
+      <a href="tianguis.html" data-es="Tianguis" data-maya="Tianguis" data-en="Marketplace">Tianguis</a>
+      <a href="#contacto" data-es="Contacto" data-maya="K'ajóoltik" data-en="Contact">Contacto</a>
+      <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i> <span data-es="Modo Oscuro" data-maya="Modo Oscuro" data-en="Dark Mode">Modo Oscuro</span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="content">
+    <h2 data-es="Tianguis Maya" data-maya="Tianguis Maya" data-en="Maya Marketplace">Tianguis Maya</h2>
+    <p data-es="Descubre y compra artesanías y productos tradicionales" data-maya="Ka'ansik yéetel k'áat artesanías yéetel productos tradicionales" data-en="Discover and buy crafts and traditional products">Descubre y compra artesanías y productos tradicionales</p>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar productos..." data-es-placeholder="Buscar productos..." data-maya-placeholder="K'áat productos..." data-en-placeholder="Search products...">
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <!-- Los productos se cargarán dinámicamente aquí -->
+    </div>
+  </div>
+
+  <div class="add-product-button" onclick="openProductForm()">
+    <i class="fas fa-plus"></i>
+  </div>
+
+  <div class="modal" id="productFormModal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeProductForm()">&times;</span>
+      <h2 data-es="Agregar Producto" data-maya="Táan u yáanal producto" data-en="Add Product">Agregar Producto</h2>
+      <form id="productForm" onsubmit="submitProduct(event)">
+        <div class="form-group">
+          <label for="productName" data-es="Nombre del Producto" data-maya="K'aaba' producto" data-en="Product Name">Nombre del Producto</label>
+          <input type="text" id="productName" required>
+        </div>
+        <div class="form-group">
+          <label for="productDescription" data-es="Descripción" data-maya="Descripción" data-en="Description">Descripción</label>
+          <textarea id="productDescription" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="productPrice" data-es="Precio" data-maya="Precio" data-en="Price">Precio</label>
+          <input type="number" id="productPrice" min="0" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="productQuantity" data-es="Cantidad Disponible" data-maya="Cantidad disponible" data-en="Available Quantity">Cantidad Disponible</label>
+          <input type="number" id="productQuantity" min="0" required>
+        </div>
+        <div class="form-group">
+          <label for="sellerName" data-es="Nombre del Vendedor" data-maya="K'aaba' vendedor" data-en="Seller Name">Nombre del Vendedor</label>
+          <input type="text" id="sellerName" required>
+        </div>
+        <div class="form-group">
+          <label for="whatsappContact" data-es="Contacto WhatsApp" data-maya="Contacto WhatsApp" data-en="WhatsApp Contact">Contacto WhatsApp</label>
+          <input type="tel" id="whatsappContact" required>
+        </div>
+        <div class="form-group">
+          <label for="productImages" data-es="Imágenes del Producto" data-maya="Fotos producto" data-en="Product Images">Imágenes del Producto</label>
+          <input type="file" id="productImages" accept="image/*" required>
+        </div>
+        <button type="submit" class="button" data-es="Publicar Producto" data-maya="Táan u yáanal producto" data-en="Publish Product">Publicar Producto</button>
+      </form>
+    </div>
+  </div>
+
+  <section id="contacto">
+    <div class="content">
+      <h2 data-es="📞 Contacto" data-maya="📞 K'ajóoltik" data-en="📞 Contact">📞 Contacto</h2>
+      <p data-es="¿Tienes preguntas sobre el Tianguis?" data-maya="¿Bix a k'ajóoltik u yáanal Tianguis?" data-en="Have questions about the Marketplace?">¿Tienes preguntas sobre el Tianguis?</p>
+      <ul>
+        <li><strong data-es="Correo:" data-maya="Correo:" data-en="Email:">Correo:</strong> contacto@conectandoraices.mx</li>
+        <li><strong data-es="WhatsApp:" data-maya="WhatsApp:" data-en="WhatsApp:">WhatsApp:</strong> +52 999 123 4567</li>
+        <li><strong data-es="Ubicación:" data-maya="Ubicación:" data-en="Location:">Ubicación:</strong> Mérida, Yucatán</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p data-es="&copy; 2025 Conectando Raíces | Desarrollado con amor por jóvenes para nuestros abuel@s." data-maya="&copy; 2025 Conectando Raíces | U beetik yéetel amor ti' jóvenes ti' abuel@s." data-en="&copy; 2025 Conectando Raíces | Developed with love by young people for our elders.">&copy; 2025 Conectando Raíces | Desarrollado con amor por jóvenes para nuestros abuel@s.</p>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    // Productos de ejemplo
+    let products = [
+      {
+        name: {
+          es: "Hamaca Tradicional",
+          maya: "Hamaca Tradicional",
+          en: "Traditional Hammock"
+        },
+        description: {
+          es: "Hamaca tejida a mano con hilos de algodón de alta calidad. Perfecta para descansar en el jardín o en la playa.",
+          maya: "Hamaca u beetik yéetel algodón. U k'áat ti' descansar ti' jardín yéetel playa.",
+          en: "Hand-woven hammock made with high-quality cotton threads. Perfect for resting in the garden or at the beach."
+        },
+        price: 1200,
+        seller: {
+          es: "Artesanías Maya",
+          maya: "Artesanías Maya",
+          en: "Maya Crafts"
+        },
+        whatsapp: "+52 999 123 4567",
+        quantity: 5,
+        image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+      }
+    ];
+
+    // Función para mostrar productos
+    function displayProducts(productsToShow = products) {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
+      const currentLang = document.documentElement.lang;
+
+      productsToShow.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name[currentLang]}" class="product-image">
+          <div class="product-content">
+            <h3 class="product-title">${product.name[currentLang]}</h3>
+            <p class="product-price">$${product.price}</p>
+            <p class="product-seller">${product.seller[currentLang]}</p>
+            <p class="product-quantity">${getTranslation('Cantidad disponible', currentLang)}: ${product.quantity}</p>
+            <a href="https://wa.me/${product.whatsapp.replace(/\D/g, '')}" class="whatsapp-button" target="_blank">
+              <i class="fab fa-whatsapp"></i> ${getTranslation('Contactar', currentLang)}
+            </a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Función para abrir el formulario
+    function openProductForm() {
+      document.getElementById('productFormModal').style.display = 'block';
+    }
+
+    // Función para cerrar el formulario
+    function closeProductForm() {
+      document.getElementById('productFormModal').style.display = 'none';
+    }
+
+    // Función para manejar el envío del formulario
+    function submitProduct(event) {
+      event.preventDefault();
+      const currentLang = document.documentElement.lang;
+
+      const imageFile = document.getElementById('productImages').files[0];
+      if (!imageFile) {
+        alert(getTranslation('Por favor selecciona una imagen', currentLang));
+        return;
+      }
+
+      const imageUrl = URL.createObjectURL(imageFile);
+      const newProduct = {
+        name: {
+          es: document.getElementById('productName').value,
+          maya: document.getElementById('productName').value,
+          en: document.getElementById('productName').value
+        },
+        description: {
+          es: document.getElementById('productDescription').value,
+          maya: document.getElementById('productDescription').value,
+          en: document.getElementById('productDescription').value
+        },
+        price: parseFloat(document.getElementById('productPrice').value),
+        seller: {
+          es: document.getElementById('sellerName').value,
+          maya: document.getElementById('sellerName').value,
+          en: document.getElementById('sellerName').value
+        },
+        whatsapp: document.getElementById('whatsappContact').value,
+        quantity: parseInt(document.getElementById('productQuantity').value),
+        image: imageUrl
+      };
+
+      products.unshift(newProduct);
+      displayProducts();
+      closeProductForm();
+      document.getElementById('productForm').reset();
+    }
+
+    // Función para buscar productos
+    function searchProducts(query) {
+      const currentLang = document.documentElement.lang;
+      const filteredProducts = products.filter(product => 
+        product.name[currentLang].toLowerCase().includes(query.toLowerCase()) ||
+        product.description[currentLang].toLowerCase().includes(query.toLowerCase()) ||
+        product.seller[currentLang].toLowerCase().includes(query.toLowerCase())
+      );
+      displayProducts(filteredProducts);
+    }
+
+    // Event listener para la búsqueda
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchProducts(e.target.value);
+    });
+
+    // Mostrar productos iniciales
+    displayProducts();
+
+    // Actualizar placeholders según el idioma
+    function updatePlaceholders() {
+      const currentLang = document.documentElement.lang;
+      const searchInput = document.getElementById('searchInput');
+      searchInput.placeholder = searchInput.getAttribute(`data-${currentLang}-placeholder`);
+    }
+
+    // Actualizar placeholders cuando cambia el idioma
+    document.addEventListener('languageChanged', updatePlaceholders);
+    updatePlaceholders();
+  </script>
+</body>
+</html> 

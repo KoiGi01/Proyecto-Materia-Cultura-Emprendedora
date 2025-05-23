@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conectando Raíces</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fefefe;
+      color: #333;
+    }
+
+    header {
+      background-color: #4a7856;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      text-align: center;
+      background-color: #eaf6ea;
+      padding: 6rem 1rem;
+      background-image: url('artesanias.png');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 1;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .section-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .section-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .section-icon {
+      font-size: 3rem;
+      color: #4a7856;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: #4a7856;
+      margin: 1rem 0;
+    }
+
+    .section-description {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .button {
+      background-color: #4a7856;
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      background-color: #3d6347;
+    }
+
+    .how-to-use {
+      background-color: #f5f5f5;
+      padding: 4rem 0;
+      margin-top: 3rem;
+    }
+
+    .how-to-use h2 {
+      text-align: center;
+      color: #4a7856;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .step-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .step-number {
+      background-color: #4a7856;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-weight: bold;
+    }
+
+    .step-title {
+      color: #4a7856;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .step-description {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .dark-mode {
+      background-color: #1a1a1a;
+      color: #f5f5f5;
+    }
+
+    .dark-mode .section-card {
+      background-color: #2a2a2a;
+    }
+
+    .dark-mode .section-description {
+      color: #ccc;
+    }
+
+    .dark-mode .how-to-use {
+      background-color: #2a2a2a;
+    }
+
+    .dark-mode .step-card {
+      background-color: #333;
+    }
+
+    .dark-mode .step-description {
+      color: #ccc;
+    }
+
+    .dark-mode-toggle {
+      background: none;
+      border: 2px solid white;
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dark-mode-toggle:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    footer {
+      background-color: #4a7856;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Conectando Raíces</h1>
+    <nav>
+      <a href="#inicio" data-es="Inicio" data-maya="Ka'ansik" data-en="Home">Inicio</a>
+      <a href="technoabuelos.html" data-es="TechnoAbuelos" data-maya="TechnoAbuelos" data-en="TechElders">TechnoAbuelos</a>
+      <a href="tianguis.html" data-es="Tianguis" data-maya="Tianguis" data-en="Marketplace">Tianguis</a>
+      <a href="#contacto" data-es="Contacto" data-maya="K'ajóoltik" data-en="Contact">Contacto</a>
+      <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i> <span data-es="Modo Oscuro" data-maya="Modo Oscuro" data-en="Dark Mode">Modo Oscuro</span>
+      </button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2 data-es="Conectando Tradición y Tecnología" data-maya="K'aaba'ob ku beetik u chi'ibal ku tsikbal ta tecnología" data-en="Connecting Tradition and Technology">Conectando Tradición y Tecnología</h2>
+    <p data-es="Somos un puente entre el rico patrimonio cultural de nuestros artesanos y el mundo digital. Nuestra plataforma centraliza la publicación de productos artesanales para dar mayor visibilidad a los creadores, mientras enseñamos a las personas mayores a utilizar la tecnología para conectarse con sus seres queridos y el mundo."
+       data-maya="Táan u beetik u chi'ibal u yáanal artesanos yéetel u yáanal tecnología"
+       data-en="We are a bridge between the rich cultural heritage of our artisans and the digital world. Our platform centralizes the publication of artisanal products to give greater visibility to creators, while teaching older adults to use technology to connect with their loved ones and the world.">
+       Somos un puente entre el rico patrimonio cultural de nuestros artesanos y el mundo digital. Nuestra plataforma centraliza la publicación de productos artesanales para dar mayor visibilidad a los creadores, mientras enseñamos a las personas mayores a utilizar la tecnología para conectarse con sus seres queridos y el mundo.
+    </p>
+  </section>
+
+  <div class="content">
+    <div class="section-grid">
+      <div class="section-card">
+        <i class="fas fa-mobile-alt section-icon"></i>
+        <h3 class="section-title" data-es="TechnoAbuelos" data-maya="TechnoAbuelos" data-en="TechElders">TechnoAbuelos</h3>
+        <p class="section-description" data-es="Aprende a usar la tecnología con nuestros talleres y cursos especializados para adultos mayores." data-maya="Ka'ansik u yáanal tecnología yéetel talleres yéetel cursos" data-en="Learn to use technology with our specialized workshops and courses for older adults.">Aprende a usar la tecnología con nuestros talleres y cursos especializados para adultos mayores.</p>
+        <a href="technoabuelos.html" class="button" data-es="Explorar Cursos" data-maya="Ka'ansik cursos" data-en="Explore Courses">Explorar Cursos</a>
+      </div>
+
+      <div class="section-card">
+        <i class="fas fa-store section-icon"></i>
+        <h3 class="section-title" data-es="Tianguis Maya" data-maya="Tianguis Maya" data-en="Maya Marketplace">Tianguis Maya</h3>
+        <p class="section-description" data-es="Descubre y compra artesanías, productos tradicionales y más en nuestro mercado digital." data-maya="Ka'ansik yéetel k'áat artesanías yéetel productos tradicionales" data-en="Discover and buy crafts, traditional products and more in our digital marketplace.">Descubre y compra artesanías, productos tradicionales y más en nuestro mercado digital.</p>
+        <a href="tianguis.html" class="button" data-es="Visitar Tianguis" data-maya="Ka'ansik Tianguis" data-en="Visit Marketplace">Visitar Tianguis</a>
+      </div>
+
+      <div class="section-card">
+        <i class="fas fa-hands-helping section-icon"></i>
+        <h3 class="section-title" data-es="¿Cómo Ayudar?" data-maya="¿Bix a k'ajóoltik?" data-en="How to Help?">¿Cómo Ayudar?</h3>
+        <p class="section-description" data-es="Conoce las diferentes formas en que puedes apoyar a nuestra comunidad y participar." data-maya="Ka'ansik bix a k'ajóoltik yéetel a meyaj" data-en="Learn about the different ways you can support our community and participate.">Conoce las diferentes formas en que puedes apoyar a nuestra comunidad y participar.</p>
+        <a href="#contacto" class="button" data-es="Más Información" data-maya="Más información" data-en="More Information">Más Información</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="how-to-use">
+    <h2 data-es="¿Cómo usar el sitio?" data-maya="¿Bix a yáanal sitio?" data-en="How to use the site?">¿Cómo usar el sitio?</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3 class="step-title" data-es="Explora el Tianguis" data-maya="Ka'ansik Tianguis" data-en="Explore the Marketplace">Explora el Tianguis</h3>
+        <p class="step-description" data-es="Navega por nuestro catálogo de productos artesanales, usa el buscador para encontrar lo que necesitas y contacta directamente con los artesanos." data-maya="Ka'ansik productos artesanales, ka'ansik bix a k'áatik yéetel k'ajóoltik artesanos" data-en="Browse our catalog of artisanal products, use the search to find what you need and contact artisans directly.">Navega por nuestro catálogo de productos artesanales, usa el buscador para encontrar lo que necesitas y contacta directamente con los artesanos.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3 class="step-title" data-es="Aprende Tecnología" data-maya="Ka'ansik tecnología" data-en="Learn Technology">Aprende Tecnología</h3>
+        <p class="step-description" data-es="Accede a nuestros cursos y tutoriales diseñados especialmente para adultos mayores. Aprende a usar WhatsApp, Facebook y más." data-maya="Ka'ansik cursos yéetel tutoriales ti' adultos mayores" data-en="Access our courses and tutorials specially designed for older adults. Learn to use WhatsApp, Facebook and more.">Accede a nuestros cursos y tutoriales diseñados especialmente para adultos mayores. Aprende a usar WhatsApp, Facebook y más.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3 class="step-title" data-es="Publica tus Productos" data-maya="Táan u yáanal a productos" data-en="Publish your Products">Publica tus Productos</h3>
+        <p class="step-description" data-es="Si eres artesano, crea tu perfil y publica tus productos. Te ayudamos a mostrar tu trabajo al mundo." data-maya="Wa artesano, táan u yáanal a perfil yéetel a productos" data-en="If you're an artisan, create your profile and publish your products. We help you showcase your work to the world.">Si eres artesano, crea tu perfil y publica tus productos. Te ayudamos a mostrar tu trabajo al mundo.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3 class="step-title" data-es="Conéctate" data-maya="K'ajóoltik" data-en="Connect">Conéctate</h3>
+        <p class="step-description" data-es="Únete a nuestra comunidad, comparte tus experiencias y mantente informado sobre nuevos productos y cursos." data-maya="K'ajóoltik yéetel comunidad, táan u yáanal a meyaj" data-en="Join our community, share your experiences and stay informed about new products and courses.">Únete a nuestra comunidad, comparte tus experiencias y mantente informado sobre nuevos productos y cursos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="content">
+      <h2 data-es="📞 Contacto" data-maya="📞 K'ajóoltik" data-en="📞 Contact">📞 Contacto</h2>
+      <p data-es="¿Quieres apoyar o aprender más?" data-maya="¿Bix a k'ajóoltik u yáanal u meyaj?" data-en="Want to support or learn more?">¿Quieres apoyar o aprender más?</p>
+      <ul>
+        <li><strong data-es="Correo:" data-maya="Correo:" data-en="Email:">Correo:</strong> contacto@conectandoraices.mx</li>
+        <li><strong data-es="WhatsApp:" data-maya="WhatsApp:" data-en="WhatsApp:">WhatsApp:</strong> +52 999 123 4567</li>
+        <li><strong data-es="Ubicación:" data-maya="Ubicación:" data-en="Location:">Ubicación:</strong> Mérida, Yucatán</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p data-es="&copy; 2025 Conectando Raíces | Desarrollado con amor por jóvenes para nuestros abuel@s." data-maya="&copy; 2025 Conectando Raíces | U beetik yéetel amor ti' jóvenes ti' abuel@s." data-en="&copy; 2025 Conectando Raíces | Developed with love by young people for our elders.">&copy; 2025 Conectando Raíces | Desarrollado con amor por jóvenes para nuestros abuel@s.</p>
+  </footer>
+
+  <script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+/* Estilos base */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: #fefefe;
+  color: #333;
+}
+
+/* Header y navegación */
+header {
+  background-color: #4a7856;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+nav a {
+  color: white;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Botones de idioma */
+.language-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-left: 1rem;
+}
+
+.language-btn {
+  background: none;
+  border: 2px solid white;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.language-btn:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.language-btn.active {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* Botón de modo oscuro */
+.dark-mode-toggle {
+  background: none;
+  border: 2px solid white;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dark-mode-toggle:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* Contenido principal */
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Modo oscuro */
+.dark-mode {
+  background-color: #1a1a1a;
+  color: #f5f5f5;
+}
+
+.dark-mode .card,
+.dark-mode .product-card,
+.dark-mode .course-card {
+  background-color: #2a2a2a;
+}
+
+.dark-mode .description,
+.dark-mode .product-seller,
+.dark-mode .product-quantity,
+.dark-mode .course-description {
+  color: #ccc;
+}
+
+.dark-mode input,
+.dark-mode textarea {
+  background-color: #2a2a2a;
+  color: #f5f5f5;
+  border-color: #4a7856;
+}
+
+/* Botones comunes */
+.button {
+  background-color: #4a7856;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #3d6347;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .language-buttons {
+    margin-left: 0;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+  }
+} 
